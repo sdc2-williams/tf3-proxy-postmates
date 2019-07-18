@@ -4,10 +4,10 @@ const app = express();
 const proxy = httpProxy.createProxyServer();
 
 const PORT = process.env.PORT || 8888;
-app.use(express.static(__dirname + '/../public'));
+// app.use(express.static(__dirname + '/../public'));
 app.use('/:id', express.static(__dirname + '/../public'));
 
-app.all('/api/:id', function(req, res) {
+app.all('/api/restaurant/:id', function(req, res) {
   console.log('redirecting to Restaurant Main Info');
   proxy.web(req, res, {target: 'http://localhost:2000'});
 });
