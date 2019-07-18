@@ -17,5 +17,11 @@ app.all('/api/menu/:id', function(req, res) {
   proxy.web(req, res, {target: 'http://localhost:3000'});
 });
 
+app.all('/api/nearby/:id', function(req, res) {
+  console.log('redirecting to Carousel');
+  proxy.web(req, res, {target: 'http://localhost:1337'});
+});
+
+
 
 app.listen(PORT, () => console.log(`Proxy Server running on port ${PORT}`));
