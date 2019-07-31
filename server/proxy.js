@@ -1,3 +1,4 @@
+require('newrelic');
 const express = require('express');
 const httpProxy = require('http-proxy');
 const app = express();
