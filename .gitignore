@@ -2,3 +2,5 @@
 node_modules/
 restaurant-main-info/
 menu-items/
+newrelic.js
+*.log
