@@ -5,22 +5,18 @@ const app = express();
 const proxy = httpProxy.createProxyServer();
 
 const PORT = process.env.PORT || 8888;
-// app.use(express.static(__dirname + '/../public'));
 app.use('/:id', express.static(__dirname + '/../public'));
 
 app.all('/api/restaurant/:id', function(req, res) {
-  console.log('redirecting to Restaurant Main Info');
-  proxy.web(req, res, {target: 'http://localhost:2000'});
+  proxy.web(req, res, {target: 'http://ec2-100-24-63-53.compute-1.amazonaws.com'});
 });
 
 app.all('/api/menu/:id', function(req, res) {
-  console.log('redirecting to Menus');
-  proxy.web(req, res, {target: 'http://localhost:3000'});
+  // proxy.web(req, res, {target: 'http://localhost:3000'});
 });
 
 app.all('/api/nearby/:id', function(req, res) {
-  console.log('redirecting to Carousel');
-  proxy.web(req, res, {target: 'http://localhost:1337'});
+  // proxy.web(req, res, {target: 'http://localhost:1337'});
 });
 
 
