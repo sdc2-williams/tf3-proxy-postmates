@@ -8,9 +8,19 @@ const PORT = process.env.PORT || 8888;
 app.use(express.static(__dirname + '/../public'));
 app.use('/:id', express.static(__dirname + '/../public'));
 
+const restaurantServiceUrls = [
+  'http://52.90.230.178',
+  'http://52.23.222.126'
+];
+
+const getRandomArrayItem = (array) => {
+  const index = Math.floor(Math.random() * array.length);
+  return array[index];
+};
+
 app.all('/api/restaurant/:id', function(req, res) {
   try {
-    proxy.web(req, res, {target: 'http://ec2-100-24-63-53.compute-1.amazonaws.com'});
+    proxy.web(req, res, {target: getRandomArrayItem(restaurantServiceUrls)});
   } catch {
     // This catches a 'socket hang up' error that proxy.web() throws if the module
     // is too slow to respond.
