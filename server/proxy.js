@@ -8,24 +8,27 @@ const PORT = process.env.PORT || 8888;
 app.use(express.static(__dirname + '/../public'));
 app.use('/:id', express.static(__dirname + '/../public'));
 
+
 const restaurantServiceUrls = [
   'http://52.90.230.178',
-  'http://52.23.222.126'
+  'http://52.23.222.126',
+  'http://54.196.95.134'
 ];
 
-const getRandomArrayItem = (array) => {
-  const index = Math.floor(Math.random() * array.length);
-  return array[index];
+let urlIndex = 0;
+const getNextUrl = () => {
+  if (urlIndex < 2) {
+    urlIndex += 1;
+  } else {
+    urlIndex = 0;
+  }
+  return restaurantServiceUrls[urlIndex];
 };
 
 app.all('/api/restaurant/:id', function(req, res) {
-  try {
-    proxy.web(req, res, {target: getRandomArrayItem(restaurantServiceUrls)});
-  } catch {
-    // This catches a 'socket hang up' error that proxy.web() throws if the module
-    // is too slow to respond.
+  proxy.web(req, res, {target: getNextUrl()}, function(err) {
     res.status(504).end();
-  }
+  });
 });
 
 app.all('/api/menu/:id', function(req, res) {
