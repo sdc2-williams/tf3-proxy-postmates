@@ -4,3 +4,4 @@ restaurant-main-info/
 menu-items/
 newrelic.js
 *.log
+.vscode
